@@ -1,4 +1,5 @@
 
+import { useState } from 'react';
 import './App.css';
 
 const Header = (props) => {
@@ -54,14 +55,30 @@ const App = () => {
     ]
   }
 
-
+  const [counter, setCounter] = useState(0)
+  const handleClick = () => {
+    console.log('clicked')
+  }
+  // setTimeout(
+  //   () => setCounter(counter + 1),
+  //   1000
+  // )
+  console.log('rendering...', counter)
   return (
     <div>
-      <Header course={course.name} />
-      <Content parts={course.parts} />
-      <Total exercise={course.parts} />
-
+      <div>{counter}</div>
+      <button onClick={()=>setCounter(counter+1)}>
+        Plus
+      </button>
+      <button onClick={()=>setCounter(0)}>
+        Zero
+      </button>
     </div>
+    // <div>
+    //   <Header course={course.name} />
+    //   <Content parts={course.parts} />
+    //   <Total exercise={course.parts} />
+    // </div>
   )
 }
 
