@@ -35,6 +35,11 @@ const Total = (props) => {
 }
 
 
+const Display = (props) => {
+  return(<div>{props.counter}</div>)
+}
+
+const Button = ({onClick, text}) => <button onClick = {onClick}> {text} </button>
 
 const App = () => {
   const course = {
@@ -55,24 +60,18 @@ const App = () => {
     ]
   }
 
+  const increasyByOne = ()=>setCounter(counter+1)
+  const decreaseByOne = ()=>setCounter(counter-1)
+  const resetCounter = ()=>setCounter(0)
+
   const [counter, setCounter] = useState(0)
-  const handleClick = () => {
-    console.log('clicked')
-  }
-  // setTimeout(
-  //   () => setCounter(counter + 1),
-  //   1000
-  // )
-  console.log('rendering...', counter)
+
   return (
     <div>
-      <div>{counter}</div>
-      <button onClick={()=>setCounter(counter+1)}>
-        Plus
-      </button>
-      <button onClick={()=>setCounter(0)}>
-        Zero
-      </button>
+      <Display counter= {counter}/>
+      <Button onClick={increasyByOne} text='Plus'/>
+      <Button onClick={decreaseByOne} text='Minus'/>
+      <Button onClick={resetCounter} text='Zero'/>
     </div>
     // <div>
     //   <Header course={course.name} />
