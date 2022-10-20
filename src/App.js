@@ -4,74 +4,47 @@ import './App.css';
 
 const Header = (props) => {
   return (
-    <div> <h1>{props.course}</h1></div>
+    <div> <h1>{props.headerText}</h1></div>
 
   )
 }
 
-const Part = (props) => {
-
+const Statistic = (props) => {
   return (
-    <p>{props.partNo} {props.exe}</p>
+    <div>{props.statisticText} : {props.count}</div>
   )
 }
-const Content = (props) => {
-  console.log(props)
-  return (
-    <div>
-
-      <Part partNo={props.parts[0].name} exe={props.parts[0].exercises} />
-      <Part partNo={props.parts[1].name} exe={props.parts[1].exercises} />
-      <Part partNo={props.parts[2].name} exe={props.parts[2].exercises} />
-
-    </div>
-  )
-
-}
-const Total = (props) => {
-  return (
-    <p>Number of exercises {props.exercise[0].exercises + props.exercise[1].exercises + props.exercise[2].exercises}</p>
-  )
-}
-
-
-const Display = (props) => {
-  return(<div>{props.counter}</div>)
-}
-
 const Button = ({onClick, text}) => <button onClick = {onClick}> {text} </button>
+//save clicks of each button to its own state
 
 const App = () => {
-  const course = {
-    name: 'Half Stack application development',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7
-      },
-      {
-        name: 'State of a component',
-        exercises: 14
-      }
-    ]
+
+  const Info = {
+    header: 'Give feedback',
+    analytics: 'Statistics'
   }
 
-  const increasyByOne = ()=>setCounter(counter+1)
-  const decreaseByOne = ()=>setCounter(counter-1)
-  const resetCounter = ()=>setCounter(0)
+  const goodCount = ()=>setGood(good+1)
+  const neutralCount = ()=>setNeutral(neutral+1)
+  const badCount = ()=>setBad(bad+1)
 
-  const [counter, setCounter] = useState(0)
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+
+
+
 
   return (
     <div>
-      <Display counter= {counter}/>
-      <Button onClick={increasyByOne} text='Plus'/>
-      <Button onClick={decreaseByOne} text='Minus'/>
-      <Button onClick={resetCounter} text='Zero'/>
+      <Header headerText={Info.header}/>
+      <Button onClick={goodCount} text='Good'/>
+      <Button onClick={neutralCount} text='Neutral'/>
+      <Button onClick={badCount} text='Bad'/>
+      <Header headerText={Info.analytics}/>
+      <Statistic statisticText='Good' count={good}/>
+      <Statistic statisticText='Neutral' count={neutral}/>
+      <Statistic statisticText='Bad' count={bad}/>
     </div>
     // <div>
     //   <Header course={course.name} />
