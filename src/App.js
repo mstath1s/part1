@@ -5,7 +5,6 @@ import './App.css';
 const Header = (props) => {
   return (
     <div> <h1>{props.headerText}</h1></div>
-
   )
 }
 
@@ -14,8 +13,9 @@ const Statistic = (props) => {
     <div>{props.statisticText} : {props.count}</div>
   )
 }
-const Button = ({onClick, text}) => <button onClick = {onClick}> {text} </button>
+
 //save clicks of each button to its own state
+const Button = ({onClick, text}) => <button onClick = {onClick}> {text} </button>
 
 const App = () => {
 
@@ -32,7 +32,10 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-
+  const all=()=>{return(bad+good+neutral)}
+  // (good: 1, neutral: 0, bad: -1)
+  const average=()=>{return((bad*(-1)+good)/all())}
+  const positiveFeedbackPercent=()=>{return((good)/all()*100+'%')}
 
 
   return (
@@ -45,12 +48,10 @@ const App = () => {
       <Statistic statisticText='Good' count={good}/>
       <Statistic statisticText='Neutral' count={neutral}/>
       <Statistic statisticText='Bad' count={bad}/>
+      <Statistic statisticText='All' count={all()}/>
+      <Statistic statisticText='Average' count={average()}/>
+      <Statistic statisticText='Positive' count={positiveFeedbackPercent()}/>
     </div>
-    // <div>
-    //   <Header course={course.name} />
-    //   <Content parts={course.parts} />
-    //   <Total exercise={course.parts} />
-    // </div>
   )
 }
 
