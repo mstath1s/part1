@@ -78,8 +78,9 @@ const App = () => {
   return (
     <div>
       { anecdotes[selected] }
+      <br />
       {console.log(selected)}
-      <p><Button onClick={selectedCount} text='next anecdode' /></p>
+      <Button onClick={selectedCount} text='next anecdode' />
    
 
       {/* <Button onClick={goodCount} text='Good' />
