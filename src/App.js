@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import './App.css';
 
@@ -10,7 +9,6 @@ const Header = (props) => {
 const Statistic = (props) => {
   return (<div>{props.statisticText} {props.count}</div>)
 }
-
 
 const Statistics = (props) => {
   const all = () => { return (props.bad + props.good + props.neutral) }
@@ -57,9 +55,6 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-
-
-
   return (
     <div>
       <Header headerText={Info.header} />
@@ -67,8 +62,8 @@ const App = () => {
       <Button onClick={neutralCount} text='Neutral' />
       <Button onClick={badCount} text='Bad' />
       <Header headerText={Info.analytics} />
+      
       <Statistics bad={bad} good={good} neutral={neutral} />
-
     </div>
   )
 }
