@@ -8,7 +8,7 @@ const Header = (props) => {
   )
 }
 const Statistic = (props) => {
-  return (<div>{props.statisticText} : {props.count}</div>)
+  return (<div>{props.statisticText} {props.count}</div>)
 }
 
 
@@ -17,17 +17,26 @@ const Statistics = (props) => {
   // (good: 1, neutral: 0, bad: -1)
   const average = () => { return ((props.bad * (-1) + props.good) / all()) }
   const positiveFeedbackPercent = () => { return ((props.good) / all() * 100 + '%') }
+  // nothing to be show yet
+  if (all() === 0) {
+    return (
+      <Statistic statisticText='No feedback given' />
+    )
+  }
+  // render the statistics as they're valid
+  else {
+    return (
+      <div>
+        <Statistic statisticText='Good' count={props.good} />
+        <Statistic statisticText='Neutral' count={props.neutral} />
+        <Statistic statisticText='Bad' count={props.bad} />
+        <Statistic statisticText='All' count={all()} />
+        <Statistic statisticText='Average' count={average()} />
+        <Statistic statisticText='Positive' count={positiveFeedbackPercent()} />
 
-  return (
-    <div>
-      <Statistic statisticText='Good' count={props.good} />
-      <Statistic statisticText='Neutral' count={props.neutral} />
-      <Statistic statisticText='Bad' count={props.bad} />
-      <Statistic statisticText='All' count={all()} />
-      <Statistic statisticText='Average' count={average()} />
-      <Statistic statisticText='Positive' count={positiveFeedbackPercent()} />
-    </div>
-  )
+      </div>
+    )
+  }
 }
 
 //save clicks of each button to its own state
@@ -58,7 +67,7 @@ const App = () => {
       <Button onClick={neutralCount} text='Neutral' />
       <Button onClick={badCount} text='Bad' />
       <Header headerText={Info.analytics} />
-      <Statistics bad={bad} good={good} neutral={neutral}/>
+      <Statistics bad={bad} good={good} neutral={neutral} />
 
     </div>
   )
