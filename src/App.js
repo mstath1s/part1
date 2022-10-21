@@ -1,13 +1,18 @@
 import { useState } from 'react';
 import './App.css';
+import './minimal-table.css';
 
 const Header = (props) => {
   return (
     <div> <h1>{props.headerText}</h1></div>
   )
 }
-const Statistic = (props) => {
-  return (<div>{props.statisticText} {props.count}</div>)
+const StatisticLine = (props) => {
+  return (<tr>
+    <td>{props.statisticText}</td>
+    <td>{props.count}</td>
+  </tr>)
+
 }
 
 const Statistics = (props) => {
@@ -18,21 +23,22 @@ const Statistics = (props) => {
   // nothing to be show yet
   if (all() === 0) {
     return (
-      <Statistic statisticText='No feedback given' />
+      <p>No feedback given</p>
     )
   }
   // render the statistics as they're valid
   else {
     return (
-      <div>
-        <Statistic statisticText='Good' count={props.good} />
-        <Statistic statisticText='Neutral' count={props.neutral} />
-        <Statistic statisticText='Bad' count={props.bad} />
-        <Statistic statisticText='All' count={all()} />
-        <Statistic statisticText='Average' count={average()} />
-        <Statistic statisticText='Positive' count={positiveFeedbackPercent()} />
-
-      </div>
+      <table>
+        <tbody>
+          <StatisticLine statisticText='Good' count={props.good} />
+          <StatisticLine statisticText='Neutral' count={props.neutral} />
+          <StatisticLine statisticText='Bad' count={props.bad} />
+          <StatisticLine statisticText='All' count={all()} />
+          <StatisticLine statisticText='Average' count={average()} />
+          <StatisticLine statisticText='Positive' count={positiveFeedbackPercent()} />
+        </tbody>
+      </table>
     )
   }
 }
@@ -62,7 +68,7 @@ const App = () => {
       <Button onClick={neutralCount} text='Neutral' />
       <Button onClick={badCount} text='Bad' />
       <Header headerText={Info.analytics} />
-      
+
       <Statistics bad={bad} good={good} neutral={neutral} />
     </div>
   )
