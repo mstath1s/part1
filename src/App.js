@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './App.css';
-import './minimal-table.css';
 
 const anecdotes = [
   {
@@ -87,5 +86,4 @@ const App = () => {
     </div>
   )
 }
-
 export default App;
