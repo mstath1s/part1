@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './App.css';
-import './minimal-table.css';
 
 const anecdotes = [
   {
@@ -34,6 +33,22 @@ const anecdotes = [
   }
 ]
 
+const mostVotedAnecdote = (props)=>{
+  var maxValue = Number.MIN_VALUE;
+  var item = 0;
+
+  for(var i=0;i<props.length;i++){
+      if(props[i].votes > maxValue){
+      maxValue = props[i].votes;
+      item = i;
+    
+     }
+  }
+  console.log('Max value = ', maxValue);
+  console.log('props length = ', props.length);
+  return item;
+}
+
 //save clicks of each button to its own state
 const Button = ({ onClick, text }) => <button onClick={onClick}> {text} </button>
 
@@ -52,6 +67,8 @@ const App = () => {
 
   // Update the votes attribute at the object anecdotes
   anecdotes[selected].votes = vote
+ let mva = mostVotedAnecdote(anecdotes)
+ console.log(mva)
 
   return (
     <div>
@@ -61,8 +78,12 @@ const App = () => {
       <br />
       <Button onClick={votesCount} text='vote' />
       <Button onClick={selectedCount} text='next anecdode' />
+      <br />
+      <h2>Anecdote with most votes</h2  >
+      { anecdotes[mva].text}
+      <p>{anecdotes[mva].votes+' votes'}</p>
+  
     </div>
   )
 }
-
 export default App;
