@@ -2,46 +2,6 @@ import { useState } from 'react';
 import './App.css';
 import './minimal-table.css';
 
-const Header = (props) => {
-  return (
-    <div> <h1>{props.headerText}</h1></div>
-  )
-}
-const StatisticLine = (props) => {
-  return (<tr>
-    <td>{props.statisticText}</td>
-    <td>{props.count}</td>
-  </tr>)
-
-}
-
-const Statistics = (props) => {
-  const all = () => { return (props.bad + props.good + props.neutral) }
-  // (good: 1, neutral: 0, bad: -1)
-  const average = () => { return ((props.bad * (-1) + props.good) / all()) }
-  const positiveFeedbackPercent = () => { return ((props.good) / all() * 100 + '%') }
-  // nothing to be show yet
-  if (all() === 0) {
-    return (
-      <p>No feedback given</p>
-    )
-  }
-  // render the statistics as they're valid
-  else {
-    return (
-      <table>
-        <tbody>
-          <StatisticLine statisticText='Good' count={props.good} />
-          <StatisticLine statisticText='Neutral' count={props.neutral} />
-          <StatisticLine statisticText='Bad' count={props.bad} />
-          <StatisticLine statisticText='All' count={all()} />
-          <StatisticLine statisticText='Average' count={average()} />
-          <StatisticLine statisticText='Positive' count={positiveFeedbackPercent()} />
-        </tbody>
-      </table>
-    )
-  }
-}
 const anecdotes = [
   {
     text: 'If it hurts, do it more often.',
@@ -79,62 +39,30 @@ const Button = ({ onClick, text }) => <button onClick={onClick}> {text} </button
 
 const App = () => {
 
-  const Info = {
-    header: 'Give feedback',
-    analytics: 'Statistics'
-  }
-
-
-
   const votesCount = () => {
-   // setVotes(vote + 1)
-   anecdotes[selected].votes = vote
-    setVotes(vote + 1)
-   console.log(vote)
-    //console.log(selected)
-    console.log( anecdotes[selected].votes)
+    setVotes(anecdotes[selected].votes + 1) // vote = 
   }
-
-  const neutralCount = () => setNeutral(neutral + 1)
-  const badCount = () => setBad(bad + 1)
-
+  const selectedCount = () => {
+    const temp = Math.floor(Math.random() * anecdotes.length)
+    setSelected(temp)
+    setVotes(anecdotes[temp].votes)
+  }
   const [vote, setVotes] = useState(0)
-  const [neutral, setNeutral] = useState(0)
-  const [bad, setBad] = useState(0)
-
   const [selected, setSelected] = useState(0)
 
-  const selectedCount = () => {
-    setSelected(Math.floor(Math.random() * anecdotes.length))
-    if(anecdotes[selected].votes > 0)
-    {
-      setVotes(anecdotes[selected].votes)
-    }
-    else{
-      setVotes(0)
-    }
-  }
+  // Update the votes attribute at the object anecdotes
+  anecdotes[selected].votes = vote
+
   return (
     <div>
       {anecdotes[selected].text}
       <br />
-
       {'has ' + anecdotes[selected].votes + ' votes'}
       <br />
       <Button onClick={votesCount} text='vote' />
-
       <Button onClick={selectedCount} text='next anecdode' />
-
-
-      {/* <Button onClick={goodCount} text='Good' />
-      <Button onClick={neutralCount} text='Neutral' />
-      <Button onClick={badCount} text='Bad' />
-      <Header headerText={Info.analytics} />
-
-      <Statistics bad={bad} good={good} neutral={neutral} /> */}
     </div>
   )
 }
 
 export default App;
-
