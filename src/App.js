@@ -49,6 +49,7 @@ const mostVotedAnecdote = (props)=>{
   return item;
 }
 
+
 //save clicks of each button to its own state
 const Button = ({ onClick, text }) => <button onClick={onClick}> {text} </button>
 
